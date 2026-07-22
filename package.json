@@ -1,0 +1,12 @@
+{
+  "name": "sf2-monitor",
+  "version": "1.0.0",
+  "description": "Monitor de vida SF2:CE via RetroArch UDP network commands",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^31.0.0"
+  }
+}
