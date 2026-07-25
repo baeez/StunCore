@@ -15,7 +15,7 @@ board.on("ready", () => {
 
   // Ejemplo: barrido automático (sweep) de los dos servos
   // Descomenta si quieres que se muevan solos de un lado a otro
-  // servo1.sweep({ range: [0, 180] });
+  //servo1.sweep({ range: [0, 180] });
   // servo2.sweep({ range: [0, 180] });
 
   // Control por teclado desde la consola (REPL de Johnny-Five)
