@@ -10,6 +10,7 @@
     "electron": "^43.2.0"
   },
   "dependencies": {
-    "firmata": "^2.3.0"
+    "firmata": "^2.3.0",
+    "johnny-five": "^2.1.0"
   }
 }

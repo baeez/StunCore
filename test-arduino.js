@@ -1,26 +1,11 @@
-// test-firmata.js
-const { Board } = require('firmata');
+//Test  all conections
+var five = require("johnny-five"),
+    board = new five.Board();
 
-const PORT_PATH = '/dev/ttyACM0'; // ajusta si es diferente
-const LED_PIN = 13; // LED integrado en la mayoría de Arduinos
+board.on("ready", function() {
+  // Create an Led on pin 13
+  var led = new five.Led(13);
 
-const board = new Board(PORT_PATH);
-
-board.on('ready', () => {
-  console.log('✅ Arduino listo y respondiendo a Firmata');
-  console.log(`Firmware: ${board.firmware.name} v${board.firmware.version.major}.${board.firmware.version.minor}\n`);
-
-  board.pinMode(LED_PIN, board.MODES.OUTPUT);
-
-  let estado = false;
-
-  setInterval(() => {
-    estado = !estado;
-    board.digitalWrite(LED_PIN, estado ? board.HIGH : board.LOW);
-    console.log(`💡 LED ${estado ? 'ENCENDIDO' : 'APAGADO'}`);
-  }, 3000);
-});
-
-board.on('error', (err) => {
-  console.error('❌ Error de conexión:', err.message);
-});
+  // Strobe the pin on/off, defaults to 100ms phases
+  led.strobe();
+}); 
