@@ -24,17 +24,18 @@ servo1.to(0);
   });
  
   board.on("exit", () => {
-    servo1.to(0);
-    servo2.to(0);
+    servo1.to(90); //Al apagarlo, dejarlo en esta posición
+    servo2.to(90); //Al apagarlo, dejarlo en este posición
   });
 
 
 
 
-  //COnectando a la RAM de RETROARCH
+  //Settings de  RETROARCH
   const HOST = '127.0.0.1';
   const PORT = 55355;
-  const POLL_INTERVAL_MS = 100;
+  const POLL_INTERVAL_MS = 100; //Intervalo de tiempo entre cada conexión
+  const SERVO_INTERVAL_MS = 300; //Intervalo de tiempo para esperar a que el servo regrese a su posición inicial
 
   let mainWindow;
   let polling = false;
@@ -125,7 +126,7 @@ servo1.to(0);
       }
 
    
-
+      //Esperamos hasta el siguiente ciclo
       await sleep(POLL_INTERVAL_MS);
     }
   }
@@ -160,6 +161,7 @@ servo1.to(0);
       mainWindow = null;
     });
 
+    //Iniciar LOOP de conexión al retro
     pollLoop();
   }
 
@@ -178,29 +180,108 @@ servo1.to(0);
   });
 
 
-  //Registrar daño
+  //Registrar daño al jugador P1 o P2
   async function damage($player, $damage, $hp, $percent) {
+    let doneFinish = false;
     console.log("Jugador: "+$player+"   Daño: "+$damage+" HP:"+$hp+" "+$percent+"%");
 
-    
-    
-      if($player == "P1"){
+     if($hp == 144){ 
+      console.log("Comenzo la batalla"); 
+      return;
+     }else if($hp == 0){ 
+      console.log("Finalizo la batalla"); 
+      return;
+     //Significa que acaba de perder el encuentro
+    }else if($hp == 255){ 
+      console.log("Perdio el jugador "+$player); 
+      doneFinish = true;
+    //Si el daño calculado es menor a 0 no hacer nada
+    }else if($damage<0 || $hp == 0){ // $damage = -0 numero negativo de $damage y  $hp = 0 significa que se termino el encuentro y murio el jugador
+       console.log("Ultimo golpe recibido en "+$player); 
+      return;
+    }
+
+    if($player == "P1"){
       console.log("Recibe ataque P1");      
-      servo1.to(110);
-      
-      
+      await damage_P1();
+     
+
+      if(doneFinish){    
+        console.log("Activando  'FATALITY XD' a P2");   
+        await sleep(100);
+        servo1.to(90);
+        await sleep(100);
+        await damage_P1();
+
+        await sleep(100);
+        servo1.to(90);
+        await sleep(100);
+        await damage_P1();
+
+         await sleep(100);
+        servo1.to(90);
+        await sleep(100);
+        await damage_P1();
+
+        await sleep(100);
+        servo1.to(90);
+        await sleep(100);
+        await damage_P1();
+
+        await sleep(100);
+        servo1.to(90);
+        await sleep(100);
+        await damage_P1();       
+      }
     }
      
     if($player == "P2"){
       console.log("Recibe ataque P2");     
-      servo1.to(70);
-        
-      
+      await damage_P2();
+
+      if(doneFinish){    
+        console.log("Activando  'FATALITY XD' a P1");   
+        await sleep(100);
+        servo1.to(90);
+        await sleep(100);
+        await damage_P2();
+
+        await sleep(100);
+        servo1.to(90);
+        await sleep(100);
+        await damage_P2();
+
+         await sleep(100);
+        servo1.to(90);
+        await sleep(100);
+        await damage_P2();
+
+        await sleep(100);
+        servo1.to(90);
+        await sleep(100);
+        await damage_P2();
+
+        await sleep(100);
+        servo1.to(90);
+        await sleep(100);
+        await damage_P2();       
+      }
     }
-    //ESPERAR A que se mueva el motor
-    await sleep(300);  
-    //RESET
+
+    //Tiempo que le daremos al servo para regresar a su posición inicial
+    await sleep(SERVO_INTERVAL_MS);  
+
+    //Regresarlo a su posición inicial
     servo1.to(90);
+  }
+
+
+  async function damage_P1() {
+     servo1.to(110);
+  }
+
+   async function damage_P2() {
+     servo1.to(70);
   }
 
 });
