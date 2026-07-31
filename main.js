@@ -21,6 +21,8 @@ servo1.to(0);
   board.repl.inject({
     servo1,
     servo2,
+    damage_P1,
+    damage_P2,
   });
  
   board.on("exit", () => {
@@ -278,10 +280,35 @@ servo1.to(0);
 
   async function damage_P1() {
      servo1.to(110);
+
+     //Lanzar animación
+     console.log(mainWindow);
+      if (mainWindow && !mainWindow.isDestroyed()) {
+        console.log("Enviando animacion Electron:");
+        
+      mainWindow.webContents.send('show-hitP1', {
+        player: 'P1',
+        x: 0,
+        y: 0
+      });
+    }
   }
 
    async function damage_P2() {
      servo1.to(70);
+
+      //Lanzar animación
+     console.log(mainWindow);
+      if (mainWindow && !mainWindow.isDestroyed()) {
+        console.log("Enviando animacion Electron:");
+        
+      mainWindow.webContents.send('show-hitP2', {
+        player: 'P2',
+        x: 0,
+        y: 0
+      });
+    }
+     
   }
 
 });

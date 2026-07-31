@@ -13,6 +13,7 @@
     font-family: 'Consolas', 'Courier New', monospace;
     padding: 20px;
     margin: 0;
+    overflow: hidden;
   }
   h1 {
     font-size: 16px;
@@ -22,10 +23,15 @@
     letter-spacing: 1px;
   }
   .vs-container {
+    padding:20px;
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     align-items: start;
     gap: 12px;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    z-index: 10;
   }
   .vs-label {
     font-size: 22px;
@@ -87,7 +93,19 @@
 </head>
 <body>
   <!-- <h1>--- SF2: CE (World 920513) ---</h1> -->
+<video 
+  id="hitVideoP1" 
+  src="lighthing.mp4" 
+  style="position: absolute; display: none;width:400px;"
+  muted
+></video>
 
+<video 
+  id="hitVideoP2" 
+  src="lighthing.mp4" 
+  style="position: absolute; display: none;width:400px;"
+  muted
+></video>
   <div class="vs-container">
     <div class="player p1">
       <div class="label">
