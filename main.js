@@ -14,10 +14,11 @@ board.on("ready", () => {
   // Servo 1 en pin 9, Servo 2 en pin 10
   const servo1 = new Servo({ pin: 9, range: [0, 180], startAt: 90 });
   const servo2 = new Servo({ pin: 10, range: [0, 180], startAt: 90 });
-servo1.to(0);
+
   //DEJAR EN 90
   servo1.to(90);
 
+  //Para ejecutar en consola y hacer pruebas
   board.repl.inject({
     servo1,
     servo2,
@@ -105,6 +106,7 @@ servo1.to(0);
       const p1Pct = Math.floor((p1Dec * 100) / 144);
       const p2Pct = Math.floor((p2Dec * 100) / 144);
 
+      //Mandar datos a la interfaz WEB
       if (mainWindow && !mainWindow.isDestroyed()) {
         mainWindow.webContents.send('sf2-data', {
           p1Dec, p1Pct,
@@ -201,6 +203,12 @@ servo1.to(0);
     }else if($damage<0 || $hp == 0){ // $damage = -0 numero negativo de $damage y  $hp = 0 significa que se termino el encuentro y murio el jugador
        console.log("Ultimo golpe recibido en "+$player); 
       return;
+
+    //Daño muy bajo, en teoria se cubrio el jugador pero esta recibiendo daño, pero ataques como el de bizon generan más  de 5 de daño por lo cual aunque se cubra lo detecta como daño
+    //Lo correcto seria detectar en la RAM cuando esta cubierto el jugador y cancelar que se mueva el sensor
+    }else if($damage <= 3){ 
+      console.log("Daño demasiado  bajo: "+$damage+",  no se activara sensor de daño."); 
+      return;
     }
 
     if($player == "P1"){
@@ -281,8 +289,7 @@ servo1.to(0);
   async function damage_P1() {
      servo1.to(110);
 
-     //Lanzar animación
-     console.log(mainWindow);
+     //Lanzar animación    
       if (mainWindow && !mainWindow.isDestroyed()) {
         console.log("Enviando animacion Electron:");
         
@@ -298,7 +305,6 @@ servo1.to(0);
      servo1.to(70);
 
       //Lanzar animación
-     console.log(mainWindow);
       if (mainWindow && !mainWindow.isDestroyed()) {
         console.log("Enviando animacion Electron:");
         
