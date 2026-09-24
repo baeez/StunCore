@@ -1,13 +1,25 @@
 {
-  "name": "sf2-monitor",
+  "name": "stuncore",
   "version": "1.0.0",
-  "description": "Monitor de vida SF2:CE via RetroArch UDP network commands",
+  "description": "Lee información de RetroArch para activar servomotores de Arduino",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "rebuild": "electron-rebuild",
+    "postinstall": "electron-rebuild",
+    "build": "electron-builder"
+  },
+  "build": {
+    "appId": "com.stuncore.app",
+    "productName": "StunCore",
+    "win": {
+      "target": "nsis"
+    }
   },
   "devDependencies": {
-    "electron": "^31.7.7"
+    "@electron/rebuild": "^4.2.0",
+    "electron": "^31.7.7",
+    "electron-builder": "^26.0.12"
   },
   "dependencies": {
     "firmata": "^2.3.0",
