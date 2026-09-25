@@ -258,13 +258,15 @@ GitHub:
 👉 https://github.com/baeez
 
 ---
-
 <div align="center">
 
-### 🥊 Street Fighter II + Arduino + Haptic Feedback
+### 🥊 Retroarch + Street Fighter II + Arduino + Haptic Feedback
 
 **StunCore v1.0.0**
 
-Made with ❤️ and Arduino
+Made with ❤️ and Javascript/CSS/HTML
 
 </div>
+
+StunCore is an independent open-source haptic feedback system for Arduino that integrates with RetroArch while playing Street Fighter II.
+
