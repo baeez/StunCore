@@ -35,13 +35,13 @@ El programa detecta cuando estás jugando **Street Fighter II** en RetroArch y c
 ┌──────────────────────┐
 │   SISTEMA HÁPTICO    │
 │                      │
-│ Toques / Impacto  │
+│ Toques / Impacto     │
 └──────────────────────┘
 ```
 
 StunCore funciona como intermediario entre RetroArch y Arduino:
 
-**Street Fighter II → RetroArch → StunCore → Arduino → Efecto háptico**
+**Street Fighter II → RetroArch → StunCore → DIY con Arduino → Efecto toques**
 
 ---
 
@@ -100,7 +100,7 @@ O descarga directamente la versión **v1.0.0**:
 
 ---
 
-### 2. Conectar Arduino
+### 2. Conectar caja de toques con Arduino
 
 Conecta el Arduino a tu PC mediante USB.
 
@@ -144,7 +144,7 @@ Cuando se produzcan los eventos compatibles con StunCore, el programa enviará l
 
 # 🤖 Arduino
 
-El Arduino debe tener instalado el firmware correspondiente al proyecto.
+El Arduino debe tener instalado el firmware de Firmata correspondiente al proyecto.
 
 La comunicación entre StunCore y Arduino se realiza mediante:
 
@@ -153,7 +153,7 @@ PC
  │
  │ USB
  ▼
-Arduino
+Arduino(Firmata)
  │
  │ Señales de control
  ▼
